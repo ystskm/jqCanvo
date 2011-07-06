@@ -3,6 +3,10 @@ jqCanvo
 
 Chain-draw and layer supported jQuery library for Canvas.
 
+Version
+-
+0.1.0
+
 Usage
 -
 
