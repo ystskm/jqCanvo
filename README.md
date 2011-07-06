@@ -41,7 +41,7 @@ canvas.addContext('L0-test1')
 .stroke();
 ```
 
-new layer and draw
+new context and draw
 
 ```js
 canvas.addContext('L0-test2')
@@ -52,7 +52,7 @@ canvas.addContext('L0-test2')
 .stroke();
 ```
 
-select a layer and save
+select a context and save
 
 ```js
 canvas.select('L0-test1')
