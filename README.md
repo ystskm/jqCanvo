@@ -52,6 +52,12 @@ canvas.addContext('L0-test2')
 .stroke();
 ```
 
+make new layer and context ( context will automatically selected )
+
+```
+canvas.addLayer().addContext('L1-cube');
+```
+
 select a context and save
 
 ```js
@@ -59,6 +65,16 @@ canvas.select('L0-test1')
 .save();
 ```
 
+draw in new context
+```
+	canvas.select('L1-cube',1)
+	.clear()
+	.beginPath({'border-color':'#000','background-color':'#000',opacity:1})
+	.rect(0,0,90,30)
+	.stroke()
+	.text("X座標：" + canvas.mouseX(e), 5, 12)
+	.text("Y座標：" + canvas.mouseY(e), 5, 24);
+```
 
 Dependency
 =
