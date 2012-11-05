@@ -7,11 +7,12 @@ Version
 -
 0.2.0
 
+Presentation / Demo
+-
+[realtime editor](http://cloudplus.me/Canvas/)
+
 Usage
 -
-presentation / demo
-[realtime editor]
-http://cloudplus.me/Canvas/
 
 head
 
