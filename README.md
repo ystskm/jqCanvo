@@ -9,6 +9,9 @@ Version
 
 Usage
 -
+presentation / demo
+[realtime editor]
+http://cloudplus.me/Canvas/
 
 head
 
