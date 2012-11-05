@@ -5,7 +5,7 @@ Chain-draw and layer supported jQuery library for Canvas.
 
 Version
 -
-0.1.0
+0.2.0
 
 Usage
 -
@@ -13,9 +13,11 @@ Usage
 head
 
 ```html
-<script type="text/javascript" src="/jqCanvo/js/jquery.cjbase.js"></script>
+<script type="text/javascript" src="/jqCanvo/jquery.jqcanvo.js"></script>
+<!-- If you want to use some shape -->
+<script type="text/javascript" src="/jqCanvo/lib/jqcanvo.shapes.js"></script>
 <!-- If you want to event handle -->
-<script type="text/javascript" src="/jqCanvo/js/jqcanvo.eventUtil.js"></script>
+<script type="text/javascript" src="/jqCanvo/lib/jqcanvo.util.js"></script>
 ```
 
 body
@@ -27,13 +29,13 @@ body
 make canvas obj
 
 ```js
-var canvas=$('#canvas').cj();
+var c=$('#canvas').canvo();
 ```
 
 make context and draw ( An layer is automatically made )
 
 ```js
-canvas.addContext('L0-test1')
+c.addContext('L0-test1')
 .beginPath({'border-color':"#000000",'background-color':"#000000",opacity:0.7})
 .bezier(400,0,500,150,450,50,500,100)
 .line(400,200)
@@ -44,7 +46,7 @@ canvas.addContext('L0-test1')
 new context and draw
 
 ```js
-canvas.addContext('L0-test2')
+c.addContext('L0-test2')
 .beginPath({'border-color':"#0000ff",'background-color':"#00ffff",opacity:0.7})
 .bezier(0,0,270,0,20,50,300,300)
 .arc(45, 95, 35, 0, Math.PI*2, false)
@@ -55,26 +57,26 @@ canvas.addContext('L0-test2')
 make new layer and context ( context will automatically selected )
 
 ```
-canvas.addLayer().addContext('L1-cube');
+c.addLayer().addContext('L1-cube');
 ```
 
 select a context and save
 
 ```js
-canvas.select('L0-test1')
+c.select('L0-test1')
 .save();
 ```
 
 draw in new context
 
 ```
-canvas.select('L1-cube',1)
+c.select('L1-cube',1)
 .clear()
 .beginPath({'border-color':'#000','background-color':'#000',opacity:1})
 .rect(0,0,90,30)
 .stroke()
-.text("X座標：" + canvas.mouseX(e), 5, 12)
-.text("Y座標：" + canvas.mouseY(e), 5, 24);
+.text("X座標:" + canvas.mouseX(e), 5, 12)
+.text("Y座標:" + canvas.mouseY(e), 5, 24);
 ```
 
 Dependency
