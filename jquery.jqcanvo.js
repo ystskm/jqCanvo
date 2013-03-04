@@ -5,9 +5,7 @@ jQuery.canvo
 
     //debug function set (client only version) >>
     var util, debug, DEBUG_CATEGORY = 'jqCanvo', FILE_NAME;
-    util = console;
-    debug = window.JS_DEBUG;
-    FILE_NAME = 'xjQuery';
+    util = console, debug = window.JS_DEBUG, FILE_NAME = 'xjQuery';
     if(debug
       && (debug == 'true' || (new RegExp(DEBUG_CATEGORY + '|' + FILE_NAME)
           .test(debug)))) {
@@ -21,7 +19,8 @@ jQuery.canvo
 
     // set to define getter
     var getters = {
-      version: '0.2.0'
+      version: '0.2.0',
+      available: true
     };
 
     // constants
@@ -31,7 +30,8 @@ jQuery.canvo
     };
 
     $.canvo = $.fn.canvo = function(option) {
-      // The canvobase object is actually just the init constructor 'enhanced'
+      if(getters.available === false)
+        return null;
       return new $.canvo.fn.init(this, option);
     };
 
@@ -47,7 +47,6 @@ jQuery.canvo
         this.instance = this;
 
         this.events = {}, this.event_ids = {};
-
         // general object
         try { // canvas permits both jQuery-object and DOM-object. 
           this.canvas = canvas.get(0);
@@ -92,6 +91,7 @@ jQuery.canvo
           throw new Error('width and height must be set. id : ' + this.id);
 
         if(!this.container) { // new 
+
           this.container = $('<div/>').width(this.width).height(this.height);
 
           if(this.position == 'static') {
@@ -109,7 +109,6 @@ jQuery.canvo
             this.container.attr('style', this.style);
 
           this.parent = this.$canvas.parent();
-
           var index = this.parent.children().index(this.canvas);
 
           // remove from dom tree.
@@ -144,8 +143,13 @@ jQuery.canvo
     //Give the init function the canvobase prototype for later instantiation
     $.canvo.fn.init.prototype = $.canvo.fn;
 
+    // test compatibility
+    var pseudo = $('<canvas/>').get(0);
+    if(!$.isFunction(pseudo.getContext))
+      return getters.available = false;
+
     // for getting context prototype 
-    var context = $('<canvas/>').get(0).getContext('2d');
+    var context = pseudo.getContext('2d');
 
     // original functions
     var extend = {
@@ -309,14 +313,15 @@ jQuery.canvo
         return this;
       },
       rotate: function(deg) {
-        var ang = toAng(deg);
-        draw.call(this, function(ctx) {
+        var ang = toAng(deg), paths = this.getPaths();
+        paths.present.r += deg, draw.call(this, function(ctx) {
           ctx.rotate(ang);
         });
         return this;
       },
       clear: function(options) {
-        var self = this, trigger = true;
+
+        var self = this, trigger = true, r = self.getPaths().present.r;
         if(typeof options == 'boolean') {
           trigger = false, options = {
             unsave: options,
@@ -330,11 +335,11 @@ jQuery.canvo
 
         if(options.path == true)
           self.getLayer().paths = getInitPaths(), options.unsave = true;
-
         if(options.unsave != true)
           self.getPaths().rstep = [];
 
         draw.call(this, function(ctx) {
+          ctx.rotate(toAng(r * -1));
           ctx.clearRect(0, 0, self.width, self.height);
         }, !options.unsave);
 
@@ -584,7 +589,8 @@ jQuery.canvo
         present: {
           x: 0,
           y: 0,
-          z: 0
+          z: 0,
+          r: 0
         },
         queue: [],
         ustep: [],
@@ -732,17 +738,18 @@ jQuery.canvo
     };
 
     // TODO performance check
-    
+
     // set getters
-    if(xjQuery.__defineGetter__)
-      for( var i in getters) {
-        xjQuery.__defineGetter__(i, callparameter(getters[i]));
-        xjQuery.__defineSetter__(i, prohibitsetter());
-      }
-    
-    else
-      for( var i in getters)
-        xjQuery[i] = getters[i];
+    if(typeof xjQuery != 'undefined') {
+      if(xjQuery.__defineGetter__)
+        for( var i in getters) {
+          xjQuery.__defineGetter__(i, callparameter(getters[i]));
+          xjQuery.__defineSetter__(i, prohibitsetter());
+        }
+      else
+        for( var i in getters)
+          xjQuery[i] = getters[i];
+    }
 
     // copy prototype
     for( var i in context.__proto__)
