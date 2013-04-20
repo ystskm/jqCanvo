@@ -10,6 +10,7 @@
 ##Prepare for use
 1.in &lt;head&gt;  
 
+	<script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
 	<script type="text/javascript" src="/jqCanvo/jquery.jqcanvo.js"></script>
 	<!-- If you want to use some shape -->
 	<script type="text/javascript" src="/jqCanvo/lib/jqcanvo.shapes.js"></script>
