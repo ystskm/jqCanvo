@@ -650,25 +650,27 @@ jQuery.canvo
         }
       }
       var farr = new Array();
-      if(fontstock['fontStylle'])
+      if(fontstock['fontStyle'])
         farr.push(fontstock['fontStyle']);
       if(fontstock['fontWeight'])
         farr.push(fontstock['fontWeight']);
       if(fontstock['fontSize'])
-        farr.push(fontstock['fontSize']);
+        farr.push(parseFloat(fontstock['fontSize']) + 'px');
       if(fontstock['fontFamily'])
-        farr.push(fontstock['fontFamily']);
+        farr.push("'" + $.trim(fontstock['fontFamily']) + "'");
       ctx.font = farr.join(' ');
     }
     function createGradient(ctx, grad) {
-      // TODO rgba(r, g, b) error avoidance
-      var stat = $.isArray(grad) ? grad: grad.split(/,/);
-      var init = $.isArray(stat[0]) ? stat[0]: stat[0].split(' ');
+      var stat = $.isArray(grad) ? grad: $.trim(
+        grad.replace(/(rgba?)\(([^\)]+)\)/g, function(a, b, c) {
+          return b + '(' + c.replace(/,/g, '_') + ')';
+        })).split(/,/);
+      var init = $.isArray(stat[0]) ? stat[0]: $.trim(stat[0]).split(' ');
       var gradObj = ctx['create' + (init.length == 4 ? 'Linear': 'Radial')
         + 'Gradient'].apply(ctx, init);
       for( var i = 1; i < stat.length; i++) {
-        var arg = $.isArray(stat[i]) ? stat[i]: stat[i].split(' ');
-        gradObj.addColorStop(arg[0], arg[1]);
+        var arg = $.isArray(stat[i]) ? stat[i]: $.trim(stat[i]).split(' ');
+        gradObj.addColorStop(arg.shift(), arg.join(' ').replace(/_/g, ','));
       }
       return gradObj;
     }

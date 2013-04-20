@@ -1,25 +1,25 @@
 /***/
-/* jqCanvo package.js */
-/* this package file is available on "foonyah" architecture */
+/* 
+ * jqCanvo package.js
+ * 
+ * this package file is available on "foonyah" architecture 
+ * see more information - http://liberty-technology.biz/
+ */
 
 var name = 'jqCanvo', pkg = {
 
   explain: {
     sammary: 'jQuery oriented canvas plugin',
-//    url: '[plugin-url]'
   },
 
   condition: {
-    version: '1.0.0',
+    version: '0.3.0',
     status: 'on development'
   },
 
   css_files: [],
-
-  server_modules:[],
-  
+  server_modules: [],
   browser_modules: ['jquery.jqcanvo', 'jqcanvo.util', 'jqcanvo.shapes'],
-
   dependencies: false,
 
   Default: {}
