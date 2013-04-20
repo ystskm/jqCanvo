@@ -8,7 +8,7 @@
 #### [realtime editor](http://cloudplus.me/Canvas/)
 
 ##Prepare for use
-1.__in &lt;head&gt;__  
+1.in &lt;head&gt;  
 
 	<script type="text/javascript" src="/jqCanvo/jquery.jqcanvo.js"></script>
 	<!-- If you want to use some shape -->
@@ -16,11 +16,11 @@
 	<!-- If you want to event handle -->
 	<script type="text/javascript" src="/jqCanvo/lib/jqcanvo.util.js"></script>
 
-2.__create__  
+2.create  
 
 	<canvas id="canvas" width="800" height="360" style="position:relative;top:8px;left:8px;border:1px dotted #ccc"></canvas>
 
-3.__make canvas obj__  
+3.make canvas obj  
 
 	var c=$('#canvas').canvo();
 
