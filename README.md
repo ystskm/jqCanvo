@@ -8,7 +8,7 @@
 #### [realtime editor](http://cloudplus.me/Canvas/)
 
 ##Prepare for use
-1.__in <head>__  
+1.__in &lt;head&gt;__  
 
 	<script type="text/javascript" src="/jqCanvo/jquery.jqcanvo.js"></script>
 	<!-- If you want to use some shape -->
