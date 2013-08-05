@@ -637,8 +637,8 @@ jQuery.canvo
         } else if('opacity' == i.slice(0, 7)) {
           ctx.globalAlpha = options[i];
         } else if('font' == i.slice(0, 4)) {
-          i = i.replace(/-(\w)/, function() {
-            return RegExp.$1.toUpperCase();
+          i = i.replace(/-(\w)/, function(a, b) {
+            return b.toUpperCase();
           });
           fontstock[i] = val;
         } else if('shadow' == i.slice(-6)) {
