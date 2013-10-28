@@ -19,13 +19,14 @@ var name = 'jqCanvo', pkg = {
 
   css_files: [],
   server_modules: [],
-  browser_modules: ['jquery.jqcanvo', 'jqcanvo.util', 'jqcanvo.shapes'],
+  browser_modules: ['jquery.jqcanvo', 'lib/jqcanvo.util', 'lib/jqcanvo.shapes',
+    'index'],
   dependencies: false,
 
   Default: {}
 
 };
 
-module.exports = function() {
+module.exports = (function() {
   return pkg;
-}();
+})();
